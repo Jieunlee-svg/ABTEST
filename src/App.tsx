@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
+import { TestOverview } from './components/TestOverview';
 import { tests } from './tests';
 
-type Selection = { testId: string; variantId: string };
+type Selection = { testId: string; variantId: string | null };
 
 function App() {
   const [selection, setSelection] = useState<Selection>({
     testId: 'sms-invite',
-    variantId: 'b',
+    variantId: null,
   });
 
   const activeTest = tests.find((t) => t.id === selection.testId);
@@ -22,6 +23,13 @@ function App() {
       <main className="flex-1 h-screen overflow-auto">
         {ActiveComponent ? (
           <ActiveComponent />
+        ) : activeTest ? (
+          <TestOverview
+            test={activeTest}
+            onSelectVariant={(variantId) =>
+              setSelection({ testId: activeTest.id, variantId })
+            }
+          />
         ) : (
           <div className="flex items-center justify-center w-full h-full text-gray-400">
             선택된 화면이 없습니다.
