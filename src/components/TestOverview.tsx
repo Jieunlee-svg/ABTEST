@@ -23,6 +23,17 @@ export const TestOverview: React.FC<Props> = ({ test, onSelectVariant }) => {
         </p>
       </section>
 
+      {test.testSteps && test.testSteps.length > 0 && (
+        <section className="mt-6">
+          <h2 className="text-sm font-semibold text-gray-900">테스트 방법</h2>
+          <ol className="mt-2 space-y-2 text-sm text-gray-700 leading-relaxed list-decimal pl-5 marker:text-gray-400 marker:font-medium">
+            {test.testSteps.map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
+          </ol>
+        </section>
+      )}
+
       <section className="mt-6">
         <h2 className="text-sm font-semibold text-gray-900">시안 보기</h2>
         <div className="flex gap-2 mt-2 flex-wrap">
